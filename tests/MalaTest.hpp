@@ -11,6 +11,7 @@
 #include <functional>
 #include <string>
 #include <vector>
+#include <cmath> // IWYU pragma: keep
 
 
 namespace Mala::Test

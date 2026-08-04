@@ -16,13 +16,13 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Configure
-        run: cmake --preset release
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DMALA_WERROR=ON
 
       - name: Build
-        run: cmake --build --preset release
+        run: cmake --build build --config Release -j
 
       - name: Test
-        run: ctest --preset release
+        run: ctest --test-dir build -C Release --output-on-failure
 
       - name: Bench (smoke)
         run: cmake --build build --config Release --target mala_bench

@@ -41,7 +41,7 @@ inline void
 alignedFree(void* p) noexcept
 {
 #if defined(_MSC_VER)
-    _aligned::free(p);
+    _aligned_free(p);
 #else
     std::free(p);
 #endif

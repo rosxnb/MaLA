@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.3)
+cmake_minimum_required(VERSION 3.20)
 project(
     mala
     LANGUAGES CXX
@@ -11,11 +11,14 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 if(CMAKE_EXPORT_COMPILE_COMMANDS)
-    file(CREATE_LINK
-        "${CMAKE_BINARY_DIR}/compile_commands.json"
-        "${CMAKE_SOURCE_DIR}/build/compile_commands.json"
-        SYMBOLIC
-    )
+    set(_dst "${CMAKE_SOURCE_DIR}/compile_commands.json")
+    if(NOT EXISTS "${_dst}" OR NOT "${_dst}" STREQUAL "${CMAKE_BINARY_DIR}/compile_commands.json")
+        file(CREATE_LINK
+            "${CMAKE_BINARY_DIR}/compile_commands.json"
+            "${_dst}"
+            SYMBOLIC
+        )
+    endif()
 endif()
 
 # Default to Release for single-config generators

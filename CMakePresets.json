@@ -1,0 +1,46 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": { "major": 4, "minor": 3, "patch": 0 },
+    "configurePresets": [
+        {
+            "name": "debug",
+            "displayName": "Debug",
+            "binaryDir": "${sourceDir}/build/debug",
+            "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+        },
+        {
+            "name": "release",
+            "displayName": "Release",
+            "binaryDir": "${sourceDir}/build/release",
+            "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
+        },
+        {
+            "name": "release-native",
+            "displayName": "Release + -march=native",
+            "inherits": "release",
+            "binaryDir": "${sourceDir}/build/release-native",
+            "cacheVariables": { "MALA_NATIVE": "ON" }
+        },
+        {
+            "name": "asan",
+            "displayName": "Debug + Address/UB sanitizers",
+            "binaryDir": "${sourceDir}/build/asan",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_CXX_FLAGS": "-fsanitize=address,undefined -fno-omit-frame-pointer",
+                "CMAKE_EXE_LINKER_FLAGS": "-fsanitize=address,undefined"
+            }
+        }
+    ],
+    "buildPresets": [
+        { "name": "debug", "configurePreset": "debug" },
+        { "name": "release", "configurePreset": "release" },
+        { "name": "release-native", "configurePreset": "release-native" },
+        { "name": "asan", "configurePreset": "asan" }
+    ],
+    "testPresets": [
+        { "name": "debug", "configurePreset": "debug", "output": { "outputOnFailure": true } },
+        { "name": "release", "configurePreset": "release", "output": { "outputOnFailure": true } },
+        { "name": "asan", "configurePreset": "asan", "output": { "outputOnFailure": true } }
+    ]
+}

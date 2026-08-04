@@ -1,0 +1,20 @@
+# build trees
+/build/
+build*
+cmake-build-*/
+
+# objects / artifacts
+*.o
+*.obj
+*.a
+*.lib
+*.dylib
+*.so
+*.dll
+*.exe
+*.out
+
+# editor / os
+.DS_Store
+.cache/
+compile_commands.json

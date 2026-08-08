@@ -75,6 +75,7 @@ if(MALA_BUILD_TESTS)
     add_executable(mala_tests
         tests/TestMain.cpp
         tests/TestPlatform.cpp
+        tests/TestTensor.cpp
     )
     target_link_libraries(mala_tests PRIVATE mala::mala)
     target_include_directories(mala_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/tests)

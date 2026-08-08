@@ -1,7 +1,7 @@
 /*
    Minimal in-house test harness.
 
-   Register cases with MALA_TEST, assert with CHECK/CHECK_CLOSE.
+   Register cases with MALA_TEST, assert with CHECK/CHECK_CLOSE/CHECK_THROWS.
    Run them all from a single main via runAll().
 */
 
@@ -101,4 +101,17 @@ inline int runAll()
         if (std::fabs(lhs - rhs) > (margin)) {                          \
             ::Mala::Test::reportFail(__FILE__, __LINE__, #a " ~= " #b); \
         }                                                               \
+    } while (0)
+
+#define CHECK_THROWS(expr)                                                          \
+    do {                                                                            \
+        bool threw = false;                                                         \
+        try {                                                                       \
+            (void)(expr);                                                           \
+        } catch (...) {                                                             \
+            threw = true;                                                           \
+        }                                                                           \
+        if (!threw) {                                                               \
+            ::Mala::Test::reportFail(__FILE__, __LINE__, "expected throw: " #expr); \
+        }                                                                           \
     } while (0)

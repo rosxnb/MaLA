@@ -34,3 +34,23 @@ jobs:
 
       - name: Bench (smoke)
         run: cmake --build build --config Release --target mala_bench
+
+  sanitizers:
+    name: asan+ubsan (linux)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # AddressSanitizer is unusable on current macOS (a libpthread/ASan runtime bug
+      # crashes before main), so the ASan gate runs here on Linux where it works.
+      - name: Configure (ASan + UBSan)
+        run: >
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+          -DCMAKE_CXX_FLAGS="-fsanitize=address,undefined -fno-omit-frame-pointer -fno-sanitize-recover=all"
+          -DCMAKE_EXE_LINKER_FLAGS="-fsanitize=address,undefined"
+
+      - name: Build
+        run: cmake --build build -j
+
+      - name: Test (sanitized)
+        run: ctest --test-dir build --output-on-failure

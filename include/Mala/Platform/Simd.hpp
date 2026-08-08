@@ -113,7 +113,7 @@ struct Simd
     // Horizontal sum of all lanes
     T reduceAdd() const noexcept
     {
-        T s = T{};
+        T s {};
         for (size_t i = 0; i < N; ++i) {
             s += v[i];
         }

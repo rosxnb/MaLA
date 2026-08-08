@@ -42,7 +42,7 @@ MALA_TEST(simdScalarOps)
 MALA_TEST(cpuDetectRuns)
 {
     auto const& features = Platform::cpu();
-    std::println("  cpu: {} sse42={} avx={} avx2={} fma={} avx512f={} neon={}",
+    std::println("cpu: {}\n  sse42={}  avx={}  avx2={}\n  fma={}  avx512f={}  neon={}\n",
                  features.name,
                  features.sse42, features.avx, features.avx2,
                  features.fma, features.avx512f, features.neon);

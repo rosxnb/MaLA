@@ -1,7 +1,7 @@
 /*
    Portable Aligned Allocation.
 
-   std::aligned_alloc required size to be a multiple of alignment, and MSVC provides
+   std::aligned_alloc requires size to be a multiple of alignment, and MSVC provides
    _aligned_malloc/_aligned_free instead.
 */
 
@@ -34,7 +34,7 @@ alignedAlloc(size_t align, size_t size) noexcept
 [[nodiscard]] inline void*
 alignedAlloc(size_t size) noexcept
 {
-    return alignedAlloc(alignBytes, size);
+    return alignedAlloc(kAlignBytes, size);
 }
 
 inline void

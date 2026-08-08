@@ -8,7 +8,6 @@
 #pragma once
 
 #include <chrono>
-#include <utility>
 #include <print>
 #include <string_view>
 
@@ -19,7 +18,7 @@ template <typename Callable>
 double timeSeconds(int iters, Callable&& body)
 {
     using Clock = std::chrono::steady_clock;
-    std::forward<Callable>(body)(); // warmup
+    body(); // warmup
 
     auto const start = Clock::now();
     for (int i = 0; i < iters; ++i) {

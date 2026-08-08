@@ -54,7 +54,7 @@ struct Registrar
 inline void reportFail(char const* file, int line, char const* expr)
 {
     ++failureCount();
-    std::println("  [FAIL] {}:{}: {}", file, line, expr);
+    std::println("  {}[FAIL]{} {}:{}: {}", Color::red, Color::reset, file, line, expr);
 }
 
 inline int runAll()
@@ -73,7 +73,10 @@ inline int runAll()
             ++failed;
         }
     }
-    std::println("\n{} passed, {} failed, {} total", passed, failed, registry().size());
+    std::println("\n{} {}passed{}, {} {}failed{}, {} {}total{}",
+                 passed, Color::green, Color::reset,
+                 failed, Color::red, Color::reset,
+                 registry().size(), Color::blue, Color::reset);
     return failed == 0 ? 0 : 1;
 }
 
@@ -91,11 +94,11 @@ inline int runAll()
         }                                                               \
     } while (0)
 
-#define CHECK_CLOSE(a, b, tol)                                          \
+#define CHECK_CLOSE(a, b, margin)                                       \
     do {                                                                \
         double const lhs = (a);                                         \
         double const rhs = (b);                                         \
-        if (std::fabs(lhs - rhs) > (tol)) {                             \
+        if (std::fabs(lhs - rhs) > (margin)) {                          \
             ::Mala::Test::reportFail(__FILE__, __LINE__, #a " ~= " #b); \
         }                                                               \
     } while (0)

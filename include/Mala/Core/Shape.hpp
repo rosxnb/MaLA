@@ -24,7 +24,7 @@ class Dims
 {
 public:
     static constexpr size_t kMaxRank = 8;
-    using value_type = Dim;
+    using valueType = Dim;
 
     Dims() = default;
 
@@ -54,7 +54,7 @@ public:
         return rank_;
     }
 
-    size_t empty() const noexcept
+    bool empty() const noexcept
     {
         return rank_ == 0;
     }
@@ -72,7 +72,7 @@ public:
     void push(Dim value)
     {
         if (rank_ >= kMaxRank)
-            throw ShapeError("Dims: ranks exceeds kMaxRank");
+            throw ShapeError("Dims: rank exceeds kMaxRank");
 
         data_[rank_++] = value;
     }

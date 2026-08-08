@@ -51,14 +51,14 @@ MALA_TEST(cpuDetectRuns)
 
 MALA_TEST(parallelForSumsCorrectly)
 {
-    std::size_t const n = 100000;
+    size_t const n = 100000;
     std::vector<int> values(n);
     std::iota(values.begin(), values.end(), 1);
 
     std::atomic<long long> total{0};
-    Platform::parallelFor(0, n, 1024, [&](std::size_t i0, std::size_t i1) {
+    Platform::parallelFor(0, n, 1024, [&](size_t i0, size_t i1) {
         long long local = 0;
-        for (std::size_t i = i0; i < i1; ++i) {
+        for (size_t i = i0; i < i1; ++i) {
             local += values[i];
         }
         total.fetch_add(local);
